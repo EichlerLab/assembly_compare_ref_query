@@ -14,10 +14,6 @@ if config == {}:
 if not os.path.exists("log"):
     os.makedirs("log")
 
-def l_dist(seq1, seq2):
-    "Calculate the Levenshtein distance between two sequences"
-    return distance(seq1, seq2)
-
 localrules: extract_query_sequence, merge_regions, tile_regions, filter_low_mapq_and_splits, get_length_and_mismatches, summary_stats, bgzip_regions, get_het_differences, get_vcf_mapping_overlap, get_corrected_mismatches, get_fixed_stats
 
 rule summary_stats:
