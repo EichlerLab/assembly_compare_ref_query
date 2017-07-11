@@ -1,6 +1,7 @@
 import os
 import pysam
 import pandas as pd
+from Levenshtein.StringMatcher import distance
 
 SNAKEMAKE_DIR = os.path.dirname(workflow.snakefile)
 
@@ -12,6 +13,10 @@ if config == {}:
 
 if not os.path.exists("log"):
     os.makedirs("log")
+
+def l_dist(seq1, seq2):
+    "Calculate the Levenshtein distance between two sequences"
+    return distance(seq1, seq2)
 
 localrules: extract_query_sequence, merge_regions, tile_regions, filter_low_mapq_and_splits, get_length_and_mismatches, summary_stats, bgzip_regions, get_het_differences, get_vcf_mapping_overlap, get_corrected_mismatches, get_fixed_stats
 
@@ -145,7 +150,7 @@ rule get_fixed_stats:
                 rec_end = record.pos + len(record.ref)
                 new_seq = temp_seq[:rec_start - start - 1] + record.alts[0] + temp_seq[rec_end - start - 1:]
                 new_alt = new_seq[rec_start - start - 1:rec_start - start - 1 + len(record.alts[0])]
-                new_dist = sum([1 for (query, new_ref) in zip(read.seq, new_seq) if query != new_ref])
+                new_dist = distance(read.seq, new_seq) # Levenshtein distance
                 if new_dist < temp_ed:
                     temp_seq = new_seq
                     temp_ed = new_dist
