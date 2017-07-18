@@ -18,4 +18,7 @@ Configure variables in config.yaml
 
 Run
 
-`snakesub -j 10 -w 60 -kT`
+```
+export PYTHONPATH=`pwd`/python-Levenshtein
+snakesub -j 10 -w 60 -kT
+```
