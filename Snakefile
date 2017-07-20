@@ -270,9 +270,9 @@ rule bgzip_regions:
 rule tile_regions:
     input: regions="regions/regions.merged.bed"
     output: "regions/regions.tiled.bed"
-    params: sge_opts="-l mfree=4G -l h_rt=1:0:0"
+    params: sge_opts="-l mfree=4G -l h_rt=1:0:0", ws=config["query_window_size"]
     shell:
-        "bedtools makewindows -w 500 -b {input.regions} > {output}"
+        "bedtools makewindows -w {params.ws} -b {input.regions} > {output}"
 
 rule merge_regions:
     input: regions=config["query_regions"]

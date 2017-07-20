@@ -2,8 +2,9 @@
 
 query_assembly_name: ponAbe2
 query_regions: ponAbe2.genes.gt50.bed
+query_window_size: 50000
 query_sequence: /net/eichler/vol2/eee_shared/assemblies/ponAbe2/ponAbe2.fa
-reference_sequence: /net/eichler/vol2/eee_shared/assemblies/ponAbe_eee/ponAbeV1qp/indexes/bwa/susie_pongoAbelii.pilon.masked.fasta
-reference_vcf: /net/eichler/vol25/projects/great_apes/nobackups/orangutan/freebayes_correction/run_freebayes/final/merged.orangutan.vcf.gz
+reference_sequence: /net/eichler/vol26/7200/great_apes/nobackups/qv_analysis/freebayes_orang_ref_files/bwa_index/susie_pongoAbelii_indel_corrected.fasta
+reference_vcf: /net/eichler/vol26/7200/great_apes/nobackups/qv_analysis/freebayes_orang_ref_files/freebayes/ponAbe_indel_corrected/final/merged.orang.vcf.gz
 vcf_ref_indiv: Pongo-abelii_F_Susie
 query_assembly_error_rate: 0.0001
