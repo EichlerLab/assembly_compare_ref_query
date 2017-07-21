@@ -1,6 +1,9 @@
 import os
 import pysam
 import pandas as pd
+
+SNAKEMAKE_DIR = os.path.dirname(workflow.snakefile)
+sys.path.append("{}/{}".format(SNAKEMAKE_DIR, "python-Levenshtein"))
 from Levenshtein.StringMatcher import distance
 
 SNAKEMAKE_DIR = os.path.dirname(workflow.snakefile)
