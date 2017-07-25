@@ -28,6 +28,7 @@ rule summary_stats:
         hets = pd.read_table(input[1])
         corrections = hets.groupby(["chr", "start", "end", "ed"])["new_ed"].agg("min").reset_index()
         het_corrections = corrections.ed.sum() - corrections.new_ed.sum()
+        het_variants = hets.shape[0]
 
         dat = pd.read_table(input[0])
         total_bases = dat.length.sum()
@@ -37,7 +38,8 @@ rule summary_stats:
         with open(output[0], "w") as outfile:
             print("Total bases:", total_bases, file=outfile)
             print("Total diff bases:", differences, file=outfile)
-            print("Heterozygous differences:", het_corrections, file=outfile)
+            print("Heterozygous corrections (bp):", het_corrections, file=outfile)
+            print("Heterozygous corrections (variants):", het_variants, file=outfile)
             print(params.query_name, "error rate:", params.query_assembly_error, file=outfile)
             print("Initial:", -10 * log10(differences/total_bases), file=outfile)
             print("Het corrected:", -10 * log10((differences-het_corrections)/total_bases), file=outfile)
