@@ -218,7 +218,8 @@ rule get_reference_vcf:
            vcfkeepsamples - {params.indiv} | vcffixup - | vcffilter -g "GT = 0/1" -f "AC = 1" |\
            vcffilter -g "! ( GT = ./. )" |\
            vcfkeepinfo - AC AB TYPE > $TMPDIR/temp.vcf
-           vcfstreamsort -a $TMPDIR/temp.vcf | bgzip -c > {output}
+           egrep -v "\.\/\.:" $TMPDIR/temp.vcf > $TMPDIR/temp2.vcf
+           vcfstreamsort -a $TMPDIR/temp2.vcf | bgzip -c > {output}
            tabix {output}"""
 
 rule get_clint_bed:
